@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'registrar_abastecimento_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -22,17 +22,18 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
+            leading: const Icon(Icons.add),
+            title: const Text('Registrar Abastecimento'),
             onTap: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-                (route) => false, // Remove todas as telas anteriores
+                MaterialPageRoute(
+                  builder: (context) => RegistrarAbastecimentoPage(),
+                ),
               );
-              print('Usuário desconectado'); // Simulação de logout
             },
           ),
+          // Outros itens permanecem inalterados...
         ],
       ),
     );
