@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'cadastro_page.dart'; // Importe a tela de cadastro
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CadastroPage extends StatelessWidget {
+  const CadastroPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Cadastro'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -17,11 +16,18 @@ class LoginPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'Bem-vindo!',
+              'Crie sua Conta',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Nome',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
             TextField(
               decoration: const InputDecoration(
                 labelText: 'E-mail',
@@ -37,28 +43,27 @@ class LoginPage extends StatelessWidget {
               ),
               obscureText: true,
             ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Confirme a Senha',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+            ),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                // Simulação de login
-                print('Login realizado');
+                // Simulação de cadastro
+                print('Usuário cadastrado');
               },
-              child: const Text('Entrar'),
+              child: const Text('Cadastrar'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CadastroPage()),
-                );
+                Navigator.pop(context); // Volta para a tela de login
               },
-              child: const Text('Não tem uma conta? Cadastre-se'),
-            ),
-            TextButton(
-              onPressed: () {
-                print('Recuperar senha');
-              },
-              child: const Text('Esqueceu sua senha?'),
+              child: const Text('Já tem uma conta? Faça login'),
             ),
           ],
         ),
