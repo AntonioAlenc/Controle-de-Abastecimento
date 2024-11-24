@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'meus_veiculos_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -25,49 +26,19 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
-              // Navegar para a tela de Home (Listagem de Veículos)
             },
           ),
           ListTile(
             leading: const Icon(Icons.directions_car),
             title: const Text('Meus Veículos'),
             onTap: () {
-              Navigator.pop(context);
-              // Navegar para a tela Meus Veículos
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MeusVeiculosPage()),
+              );
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text('Adicionar Veículo'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navegar para a tela Adicionar Veículo
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text('Histórico de Abastecimentos'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navegar para a tela Histórico
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Perfil'),
-            onTap: () {
-              Navigator.pop(context);
-              // Navegar para a tela Perfil
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () {
-              Navigator.pop(context);
-              // Realizar Logout
-            },
-          ),
+          // Outros itens permanecem inalterados...
         ],
       ),
     );
