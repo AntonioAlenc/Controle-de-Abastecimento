@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'perfil_page.dart';
+import 'login_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -22,16 +22,17 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Perfil'),
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
             onTap: () {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => PerfilPage()),
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false, // Remove todas as telas anteriores
               );
+              print('Usuário desconectado'); // Simulação de logout
             },
           ),
-          // Outros itens permanecem inalterados...
         ],
       ),
     );
