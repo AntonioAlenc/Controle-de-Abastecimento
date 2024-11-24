@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/abastecimentos_data.dart';
 
 class RegistrarAbastecimentoPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -74,11 +75,13 @@ class RegistrarAbastecimentoPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Simulação de salvamento
-                    print('Abastecimento registrado:');
-                    print('Data: ${dataController.text}');
-                    print('Litros: ${litrosController.text}');
-                    print('Quilometragem: ${quilometragemController.text}');
+                    AbastecimentosData.abastecimentos.add(
+                      Abastecimento(
+                        data: dataController.text,
+                        litros: double.parse(litrosController.text),
+                        quilometragem: double.parse(quilometragemController.text),
+                      ),
+                    );
                     Navigator.pop(context); // Voltar para a tela anterior
                   }
                 },

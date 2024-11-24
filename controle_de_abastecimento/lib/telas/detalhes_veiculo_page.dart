@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/veiculo.dart';
+import '../data/abastecimentos_data.dart';
 
 class DetalhesVeiculoPage extends StatelessWidget {
   final Veiculo veiculo;
@@ -8,11 +9,17 @@ class DetalhesVeiculoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Cálculo simulado da média de consumo
-    double quilometragemAnterior = 11500; // Mock data
-    double quilometragemAtual = 12000;    // Mock data
-    double litrosAbastecidos = 50.0;      // Mock data
-    double mediaConsumo = (quilometragemAtual - quilometragemAnterior) / litrosAbastecidos;
+    final abastecimentos = AbastecimentosData.abastecimentos;
+
+    // Verifica se há dados suficientes para calcular a média
+    double mediaConsumo = 0;
+    if (abastecimentos.length >= 2) {
+      final abastecimentoMaisRecente = abastecimentos.last;
+      final abastecimentoAnterior = abastecimentos[abastecimentos.length - 2];
+
+      final quilometragemPercorrida = abastecimentoMaisRecente.quilometragem - abastecimentoAnterior.quilometragem;
+      mediaConsumo = quilometragemPercorrida / abastecimentoMaisRecente.litros;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +46,9 @@ class DetalhesVeiculoPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Média de Consumo: ${mediaConsumo.toStringAsFixed(2)} km/L',
+              mediaConsumo > 0
+                  ? 'Média de Consumo: ${mediaConsumo.toStringAsFixed(2)} km/L'
+                  : 'Média de Consumo: Dados insuficientes',
               style: const TextStyle(fontSize: 18),
             ),
           ],
