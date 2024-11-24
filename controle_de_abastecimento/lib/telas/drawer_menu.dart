@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'historico_page.dart';
+import 'perfil_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -22,12 +22,12 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text('Histórico de Abastecimentos'),
+            leading: const Icon(Icons.person),
+            title: const Text('Perfil'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HistoricoPage()),
+                MaterialPageRoute(builder: (context) => PerfilPage()),
               );
             },
           ),
