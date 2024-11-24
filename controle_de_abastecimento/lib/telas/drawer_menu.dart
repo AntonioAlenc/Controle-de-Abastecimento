@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'meus_veiculos_page.dart';
+import 'adicionar_veiculo_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -29,12 +29,12 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.directions_car),
-            title: const Text('Meus Veículos'),
+            leading: const Icon(Icons.add),
+            title: const Text('Adicionar Veículo'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MeusVeiculosPage()),
+                MaterialPageRoute(builder: (context) => AdicionarVeiculoPage()),
               );
             },
           ),
