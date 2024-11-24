@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'adicionar_veiculo_page.dart';
+import 'historico_page.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -22,19 +22,12 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text('Adicionar Veículo'),
+            leading: const Icon(Icons.history),
+            title: const Text('Histórico de Abastecimentos'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AdicionarVeiculoPage()),
+                MaterialPageRoute(builder: (context) => HistoricoPage()),
               );
             },
           ),
