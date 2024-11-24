@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/veiculos_data.dart';
+import 'detalhes_veiculo_page.dart';
 
 class MeusVeiculosPage extends StatelessWidget {
   MeusVeiculosPage({Key? key}) : super(key: key);
@@ -25,8 +26,12 @@ class MeusVeiculosPage extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.arrow_forward),
                 onPressed: () {
-                  // Ação para navegar para os detalhes do veículo
-                  print('Detalhes do veículo: ${veiculo.nome}');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetalhesVeiculoPage(veiculo: veiculo),
+                    ),
+                  );
                 },
               ),
             ),
