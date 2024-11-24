@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../data/veiculos_data.dart';
+import '../models/veiculo.dart';
 
 class AdicionarVeiculoPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -85,12 +87,14 @@ class AdicionarVeiculoPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Simulação de salvamento
-                    print('Veículo cadastrado:');
-                    print('Nome: ${nomeController.text}');
-                    print('Modelo: ${modeloController.text}');
-                    print('Ano: ${anoController.text}');
-                    print('Placa: ${placaController.text}');
+                    VeiculosData.veiculos.add(
+                      Veiculo(
+                        nome: nomeController.text,
+                        modelo: modeloController.text,
+                        ano: int.parse(anoController.text),
+                        placa: placaController.text,
+                      ),
+                    );
                     Navigator.pop(context); // Voltar para a tela anterior
                   }
                 },
