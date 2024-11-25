@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
-import '../data/veiculos_data.dart';
-import '../models/veiculo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdicionarVeiculoPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController modeloController = TextEditingController();
   final TextEditingController anoController = TextEditingController();
   final TextEditingController placaController = TextEditingController();
 
   AdicionarVeiculoPage({Key? key}) : super(key: key);
+
+  Future<void> _salvarVeiculo() async {
+    try {
+      await FirebaseFirestore.instance.collection('veiculos').add({
+        'nome': nomeController.text,
+        'modelo': modeloController.text,
+        'ano': int.parse(anoController.text),
+        'placa': placaController.text,
+      });
+    } catch (e) {
+      print('Erro ao salvar veículo: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,15 +98,8 @@ class AdicionarVeiculoPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    VeiculosData.veiculos.add(
-                      Veiculo(
-                        nome: nomeController.text,
-                        modelo: modeloController.text,
-                        ano: int.parse(anoController.text),
-                        placa: placaController.text,
-                      ),
-                    );
-                    Navigator.pop(context); // Voltar para a tela anterior
+                    _salvarVeiculo();
+                    Navigator.pop(context);
                   }
                 },
                 child: const Text('Salvar Veículo'),
