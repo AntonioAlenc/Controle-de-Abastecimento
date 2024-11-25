@@ -1,28 +1,19 @@
+import 'package:controle_de_abastecimento/telas/adicionar_abastecimento_page.dart';
 import 'package:flutter/material.dart';
+import '../data/abastecimentos_data.dart';
 
-class HistoricoPage extends StatelessWidget {
-  final List<Map<String, dynamic>> abastecimentos = [
-    {
-      'data': '2024-11-20',
-      'litros': 45.3,
-      'km': 12000,
-    },
-    {
-      'data': '2024-11-15',
-      'litros': 40.0,
-      'km': 11800,
-    },
-    {
-      'data': '2024-11-10',
-      'litros': 50.5,
-      'km': 11500,
-    },
-  ];
-
-  HistoricoPage({Key? key}) : super(key: key);
+class HistoricoPage extends StatefulWidget {
+  const HistoricoPage({Key? key}) : super(key: key);
 
   @override
+  State<HistoricoPage> createState() => _HistoricoPageState();
+}
+
+class _HistoricoPageState extends State<HistoricoPage> {
+  @override
   Widget build(BuildContext context) {
+    final abastecimentos = AbastecimentosData.abastecimentos;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Histórico de Abastecimentos'),
@@ -42,6 +33,18 @@ class HistoricoPage extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AdicionarAbastecimentoPage()),
+          ).then((_) {
+            setState(() {}); // Atualiza a lista após adicionar
+          });
+        },
+        child: const Icon(Icons.add),
+        tooltip: 'Adicionar Abastecimento',
       ),
     );
   }

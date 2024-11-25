@@ -80,7 +80,7 @@ class RegistrarAbastecimentoPage extends StatelessWidget {
                         data: dataController.text,
                         litros: double.parse(litrosController.text),
                         quilometragem: double.parse(quilometragemController.text),
-                      ),
+                      ) as Map<String, dynamic>,
                     );
                     Navigator.pop(context); // Voltar para a tela anterior
                   }

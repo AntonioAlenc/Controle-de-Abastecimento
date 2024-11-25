@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import '../data/veiculos_data.dart';
+import '../data/abastecimentos_data.dart';
 
-class AdicionarVeiculoPage extends StatelessWidget {
+class AdicionarAbastecimentoPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController nomeController = TextEditingController();
-  final TextEditingController modeloController = TextEditingController();
-  final TextEditingController anoController = TextEditingController();
-  final TextEditingController placaController = TextEditingController();
+  final TextEditingController dataController = TextEditingController();
+  final TextEditingController litrosController = TextEditingController();
+  final TextEditingController kmController = TextEditingController();
 
-  AdicionarVeiculoPage({Key? key}) : super(key: key);
+  AdicionarAbastecimentoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Veículo'),
+        title: const Text('Adicionar Abastecimento'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,57 +22,44 @@ class AdicionarVeiculoPage extends StatelessWidget {
           child: ListView(
             children: [
               TextFormField(
-                controller: nomeController,
+                controller: dataController,
                 decoration: const InputDecoration(
-                  labelText: 'Nome',
+                  labelText: 'Data',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira o nome do veículo';
+                    return 'Por favor, insira a data do abastecimento';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: modeloController,
+                controller: litrosController,
                 decoration: const InputDecoration(
-                  labelText: 'Modelo',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira o modelo do veículo';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: anoController,
-                decoration: const InputDecoration(
-                  labelText: 'Ano',
+                  labelText: 'Litros',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira o ano';
+                    return 'Por favor, insira a quantidade de litros';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: placaController,
+                controller: kmController,
                 decoration: const InputDecoration(
-                  labelText: 'Placa',
+                  labelText: 'Quilometragem Atual',
                   border: OutlineInputBorder(),
                 ),
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira a placa do veículo';
+                    return 'Por favor, insira a quilometragem atual';
                   }
                   return null;
                 },
@@ -82,13 +68,12 @@ class AdicionarVeiculoPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    VeiculosData.veiculos.add({
-                      'nome': nomeController.text,
-                      'modelo': modeloController.text,
-                      'ano': anoController.text,
-                      'placa': placaController.text,
+                    AbastecimentosData.abastecimentos.add({
+                      'data': dataController.text,
+                      'litros': double.parse(litrosController.text),
+                      'km': int.parse(kmController.text),
                     });
-                    Navigator.pop(context); // Retorna para a tela anterior
+                    Navigator.pop(context);
                   }
                 },
                 child: const Text('Salvar'),

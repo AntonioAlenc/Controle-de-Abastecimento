@@ -1,10 +1,15 @@
+import 'package:controle_de_abastecimento/telas/adicionar_veiculo_page.dart';
 import 'package:flutter/material.dart';
 import '../data/veiculos_data.dart';
-import 'detalhes_veiculo_page.dart';
 
-class MeusVeiculosPage extends StatelessWidget {
-  MeusVeiculosPage({Key? key}) : super(key: key);
+class MeusVeiculosPage extends StatefulWidget {
+  const MeusVeiculosPage({Key? key}) : super(key: key);
 
+  @override
+  State<MeusVeiculosPage> createState() => _MeusVeiculosPageState();
+}
+
+class _MeusVeiculosPageState extends State<MeusVeiculosPage> {
   @override
   Widget build(BuildContext context) {
     final veiculos = VeiculosData.veiculos;
@@ -21,22 +26,23 @@ class MeusVeiculosPage extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ListTile(
               leading: const Icon(Icons.directions_car, size: 40),
-              title: Text('${veiculo.nome} (${veiculo.modelo})'),
-              subtitle: Text('Ano: ${veiculo.ano}\nPlaca: ${veiculo.placa}'),
-              trailing: IconButton(
-                icon: const Icon(Icons.arrow_forward),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetalhesVeiculoPage(veiculo: veiculo),
-                    ),
-                  );
-                },
-              ),
+              title: Text('${veiculo['nome']} (${veiculo['modelo']})'),
+              subtitle: Text('Ano: ${veiculo['ano']}\nPlaca: ${veiculo['placa']}'),
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AdicionarVeiculoPage()),
+          ).then((_) {
+            setState(() {}); // Atualiza a lista após adicionar
+          });
+        },
+        child: const Icon(Icons.add),
+        tooltip: 'Adicionar Veículo',
       ),
     );
   }

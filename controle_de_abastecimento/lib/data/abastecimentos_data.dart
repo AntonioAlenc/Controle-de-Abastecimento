@@ -11,5 +11,5 @@ class Abastecimento {
 }
 
 class AbastecimentosData {
-  static final List<Abastecimento> abastecimentos = [];
+  static final List<Map<String, dynamic>> abastecimentos = [];
 }

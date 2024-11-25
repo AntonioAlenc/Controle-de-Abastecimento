@@ -57,3 +57,9 @@ class DetalhesVeiculoPage extends StatelessWidget {
     );
   }
 }
+
+extension on Map<String, dynamic> {
+  get quilometragem => null;
+  
+  get litros => null;
+}
