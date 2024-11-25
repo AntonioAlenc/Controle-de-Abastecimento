@@ -1,6 +1,7 @@
+import 'package:controle_de_abastecimento/telas/cadastro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'home_page.dart';
+import 'home_page.dart'; // Tela principal após login bem-sucedido.
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -9,11 +10,11 @@ class LoginPage extends StatelessWidget {
 
   LoginPage({Key? key}) : super(key: key);
 
-  Future<void> _login(BuildContext context) async {
+  Future<void> _fazerLogin(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: senhaController.text,
+        email: emailController.text.trim(),
+        password: senhaController.text.trim(),
       );
       Navigator.pushReplacement(
         context,
@@ -21,8 +22,7 @@ class LoginPage extends StatelessWidget {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao fazer login: $e')),
-      );
+        SnackBar(content: Text('Erro ao fazer login: $e')));
     }
   }
 
@@ -79,22 +79,28 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _login(context);
+                    _fazerLogin(context);
                   }
                 },
                 child: const Text('Entrar'),
               ),
               TextButton(
                 onPressed: () {
-                  // Navegar para a tela de cadastro
+                  // Função para recuperação de senha ou outra navegação.
                 },
-                child: const Text('Não tem uma conta? Cadastre-se'),
+                child: const Text('Esqueceu sua senha?'),
               ),
               TextButton(
                 onPressed: () {
-                  // Função de recuperação de senha
+                  // Navegar para a tela de cadastro
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroPage(),
+                    ),
+                  );
                 },
-                child: const Text('Esqueceu sua senha?'),
+                child: const Text('Não tem uma conta? Cadastre-se'),
               ),
             ],
           ),
