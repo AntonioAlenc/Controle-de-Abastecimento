@@ -32,4 +32,4 @@ Um aplicativo Flutter integrado com Firebase para gerenciar veículos, registrar
 
 ## 👨‍💻 Desenvolvido Por
 - **Antônio Alencar**
-- [Seu GitHub](https://github.com/AntonioAlenc)
+- [GitHub](https://github.com/AntonioAlenc)
