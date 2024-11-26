@@ -1,7 +1,7 @@
 import 'package:controle_de_abastecimento/telas/cadastro_page.dart';
+import 'package:controle_de_abastecimento/telas/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'home_page.dart'; // Tela principal após login bem-sucedido.
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -9,6 +9,53 @@ class LoginPage extends StatelessWidget {
   final TextEditingController senhaController = TextEditingController();
 
   LoginPage({Key? key}) : super(key: key);
+
+  Future<void> _enviarEmailRedefinicaoSenha(BuildContext context) async {
+    String email = '';
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Redefinir Senha'),
+          content: TextField(
+            onChanged: (value) {
+              email = value;
+            },
+            decoration: const InputDecoration(
+              labelText: 'Insira seu e-mail',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                try {
+                  await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('E-mail de redefinição enviado. Verifique sua caixa de entrada.'),
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Erro ao enviar e-mail: $e')),
+                  );
+                }
+              },
+              child: const Text('Enviar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<void> _fazerLogin(BuildContext context) async {
     try {
@@ -18,11 +65,12 @@ class LoginPage extends StatelessWidget {
       );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()), // Substitua pela sua tela principal
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao fazer login: $e')));
+        SnackBar(content: Text('Erro ao fazer login: $e')),
+      );
     }
   }
 
@@ -86,17 +134,16 @@ class LoginPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Função para recuperação de senha ou outra navegação.
+                  _enviarEmailRedefinicaoSenha(context);
                 },
                 child: const Text('Esqueceu sua senha?'),
               ),
               TextButton(
                 onPressed: () {
-                  // Navegar para a tela de cadastro
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CadastroPage(),
+                      builder: (context) => CadastroPage(), // Substitua pela tela de cadastro
                     ),
                   );
                 },
