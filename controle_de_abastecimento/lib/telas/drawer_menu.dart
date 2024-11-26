@@ -48,65 +48,89 @@ class _DrawerMenuState extends State<DrawerMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(nomeUsuario ?? 'Carregando...'),
-            accountEmail: Text(emailUsuario ?? 'Carregando...'),
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text(
-                'U',
-                style: TextStyle(fontSize: 40.0, color: Colors.blue),
+      child: Container(
+        color: const Color(0xFF121212),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(
+                nomeUsuario ?? 'Carregando...',
+                style: const TextStyle(color: Colors.white),
+              ),
+              accountEmail: Text(
+                emailUsuario ?? 'Carregando...',
+                style: const TextStyle(color: Colors.white70),
+              ),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Color(0xFFF3BA2F),
+                child: Text(
+                  'U',
+                  style: TextStyle(fontSize: 40.0, color: Colors.black),
+                ),
+              ),
+              decoration: const BoxDecoration(
+                color: Color(0xFF181A20),
               ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Perfil'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PerfilPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.directions_car),
-            title: const Text('Meus Veículos'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MeusVeiculosPage()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text('Histórico Geral de Abastecimentos'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HistoricoPage(
-                    veiculoId: '',
+            ListTile(
+              leading: const Icon(Icons.person, color: Color(0xFFF3BA2F)),
+              title: const Text(
+                'Perfil',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PerfilPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.directions_car, color: Color(0xFFF3BA2F)),
+              title: const Text(
+                'Meus Veículos',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MeusVeiculosPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history, color: Color(0xFFF3BA2F)),
+              title: const Text(
+                'Histórico Geral de Abastecimentos',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HistoricoPage(
+                      veiculoId: '',
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Color(0xFFF3BA2F)),
+              title: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
