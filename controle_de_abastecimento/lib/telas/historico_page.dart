@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/abastecimentos_data.dart';
 
 class HistoricoPage extends StatefulWidget {
-  const HistoricoPage({Key? key}) : super(key: key);
+  const HistoricoPage({Key? key, required String veiculoId}) : super(key: key);
 
   @override
   State<HistoricoPage> createState() => _HistoricoPageState();

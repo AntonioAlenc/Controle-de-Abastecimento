@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'meus_veiculos_page.dart';
 import 'historico_page.dart';
+import 'perfil_page.dart';
 import 'login_page.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -24,10 +25,13 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            leading: const Icon(Icons.person),
+            title: const Text('Perfil'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PerfilPage()),
+              );
             },
           ),
           ListTile(
@@ -36,17 +40,21 @@ class DrawerMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MeusVeiculosPage()),
+                MaterialPageRoute(builder: (context) => const MeusVeiculosPage()),
               );
             },
           ),
           ListTile(
             leading: const Icon(Icons.history),
-            title: const Text('Histórico de Abastecimentos'),
+            title: const Text('Histórico Geral de Abastecimentos'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HistoricoPage()),
+                MaterialPageRoute(
+                  builder: (context) => const HistoricoPage(
+                    veiculoId: '', // Pode ser ajustado para histórico geral ou um veículo específico
+                  ),
+                ),
               );
             },
           ),

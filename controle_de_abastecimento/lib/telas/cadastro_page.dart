@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CadastroPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
+  final TextEditingController nomeController = TextEditingController();
 
   CadastroPage({Key? key}) : super(key: key);
 
   Future<void> _cadastrarUsuario(BuildContext context) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // Cria o usuário no Firebase Authentication
+      final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: senhaController.text.trim(),
       );
+
+      // Salva os dados do usuário no Firestore
+      await FirebaseFirestore.instance.collection('usuarios').doc(userCredential.user!.uid).set({
+        'nome': nomeController.text.trim(),
+        'email': emailController.text.trim(),
+        'createdAt': Timestamp.now(), // Data de criação do usuário
+      });
+
+      // Exibe mensagem de sucesso e retorna para a tela anterior
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuário cadastrado com sucesso!')));
+        const SnackBar(content: Text('Usuário cadastrado com sucesso!')),
+      );
       Navigator.pop(context);
     } catch (e) {
+      // Trata erros de cadastro
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao cadastrar: $e')));
+        SnackBar(content: Text('Erro ao cadastrar: $e')),
+      );
     }
   }
 
@@ -41,6 +56,20 @@ class CadastroPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
+              TextFormField(
+                controller: nomeController,
+                decoration: const InputDecoration(
+                  labelText: 'Nome Completo',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira seu nome';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: emailController,
                 decoration: const InputDecoration(
