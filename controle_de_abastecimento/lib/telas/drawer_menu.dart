@@ -1,11 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'meus_veiculos_page.dart';
 import 'historico_page.dart';
 import 'perfil_page.dart';
 import 'login_page.dart';
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends StatefulWidget {
   const DrawerMenu({Key? key}) : super(key: key);
+
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
+  String? nomeUsuario;
+  String? emailUsuario;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarDadosUsuario();
+  }
+
+  Future<void> _carregarDadosUsuario() async {
+    try {
+      User? usuario = FirebaseAuth.instance.currentUser;
+      if (usuario != null) {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('usuarios')
+            .doc(usuario.uid)
+            .get();
+
+        if (snapshot.exists) {
+          final dados = snapshot.data();
+          setState(() {
+            nomeUsuario = dados?['nome'] ?? 'Usuário Nome';
+            emailUsuario = dados?['email'] ?? 'usuario@email.com';
+          });
+        }
+      }
+    } catch (e) {
+      print('Erro ao carregar dados do usuário: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +52,8 @@ class DrawerMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('Usuário Nome'),
-            accountEmail: const Text('usuario@email.com'),
+            accountName: Text(nomeUsuario ?? 'Carregando...'),
+            accountEmail: Text(emailUsuario ?? 'Carregando...'),
             currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Text(
@@ -52,7 +90,7 @@ class DrawerMenu extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const HistoricoPage(
-                    veiculoId: '', // Pode ser ajustado para histórico geral ou um veículo específico
+                    veiculoId: '',
                   ),
                 ),
               );
